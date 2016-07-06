@@ -1,0 +1,2 @@
+# FragmentLazyTest
+android fragment lazy
