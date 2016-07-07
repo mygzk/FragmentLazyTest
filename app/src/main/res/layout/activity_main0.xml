@@ -12,14 +12,14 @@
     <Button
         android:id="@+id/btntest"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="48dp"
         android:gravity="center"
         android:text="btntest"
         />
     <Button
         android:id="@+id/viewpagertest"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="48dp"
         android:gravity="center"
         android:text="viewpagertest"
         />

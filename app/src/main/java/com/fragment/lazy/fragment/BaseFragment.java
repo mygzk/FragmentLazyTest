@@ -21,7 +21,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        Log.e(TAG,"setUserVisibleHint");
+        Log.e(TAG,"setUserVisibleHint:"+isVisibleToUser);
+        Log.e(TAG,"setUserVisibleHint getUserVisibleHint:"+getUserVisibleHint());
         if (getUserVisibleHint()) {
             isVisible = true;
             onVisible();
@@ -41,9 +42,17 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(getLayout(), container, false);
+        Log.e(TAG,"onCreateView:");
         isPrepared = true;
         lazyLoad();
         return fragmentView;
+    }
+
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.e(TAG,"onViewCreated:");
     }
 
     abstract int getLayout();
