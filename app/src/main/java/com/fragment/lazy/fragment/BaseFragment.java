@@ -2,31 +2,70 @@ package com.fragment.lazy.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
-import com.fragment.lazy.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
+    public final String TAG = this.getClass().getSimpleName();
 
-
-    public BaseFragment() {
-        // Required empty public constructor
-    }
-
+    protected boolean isVisible;
+    private boolean isPrepared;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(R.string.hello_blank_fragment);
-        return textView;
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        Log.e(TAG,"setUserVisibleHint");
+        if (getUserVisibleHint()) {
+            isVisible = true;
+            onVisible();
+        } else {
+            isVisible = false;
+            onInvisible();
+        }
     }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        Log.e(TAG,"onHiddenChanged:"+hidden);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View fragmentView = inflater.inflate(getLayout(), container, false);
+        isPrepared = true;
+        lazyLoad();
+        return fragmentView;
+    }
+
+    abstract int getLayout();
+
+    protected void onVisible() {
+        lazyLoad();
+    }
+
+    protected void lazyLoad() {
+        if (!isPrepared || !isVisible) {
+            return;
+        }
+
+        onLoad();
+    }
+
+    protected abstract void onLoad();
+
+    ;
+
+    protected void onInvisible() {
+    }
+
 
 }

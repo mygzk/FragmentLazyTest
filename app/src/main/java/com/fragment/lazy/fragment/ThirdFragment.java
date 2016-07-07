@@ -1,30 +1,28 @@
 package com.fragment.lazy.fragment;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.util.Log;
 
 import com.fragment.lazy.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ThirdFragment extends Fragment {
+public class ThirdFragment extends BaseFragment {
 
 
     public ThirdFragment() {
         // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_third, container, false);
+    int getLayout() {
+        return R.layout.fragment_third;
     }
 
+    @Override
+    protected void onLoad() {
+        Log.e(TAG, "Third Fragment Fragtment onLoad");
+    }
 }
